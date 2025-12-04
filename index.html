@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DE’ NO — One Dish One Moment</title>
+  <meta name="description" content="DE’ NO — อาหารจานเดียวแบบฟิวชัน เรียบง่าย แต่ชัดเจนในรสชาติ กินง่าย สบายใจ ในชามเดียว">
+  <link rel="icon" type="image/png" href="assets/deno-logo.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta property="og:title" content="DE’ NO — One Dish One Moment" />
+  <meta property="og:description" content="อาหารจานเดียวที่ทำให้วันหนึ่งเบาลง" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/deno-logo.png" />
+  <meta name="theme-color" content="#1A1818" />
+  <style>
+    :root{
+      --cream-white:#F6F2EB;
+      --mocha-brown:#A88869;
+      --cocoa-deep:#6B4C37;
+      --ink-black:#1A1818;
+      --burnt-orange:#C06037;
+      --forest-green:#4F6A4A;
+
+      --brand-bg:var(--cream-white);
+      --brand-primary:var(--ink-black);
+      --brand-accent:var(--burnt-orange);
+      --brand-accent-2:var(--mocha-brown);
+      --brand-accent-3:var(--forest-green);
+
+      --text:#1A1818;
+      --muted:#5a5a5a;
+      --card:#ffffff;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --maxw:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:"Prompt",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--brand-bg);color:var(--text)}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--maxw);margin:0 auto;padding:24px}
+    .nav{position:sticky;top:0;background:rgba(246,242,235,.85);backdrop-filter:blur(8px);z-index:10;border-bottom:1px solid rgba(0,0,0,.06)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:44px;width:auto;border-radius:8px}
+    .brand h1{font-size:18px;margin:0;font-weight:700;letter-spacing:.3px}
+    .nav-cta{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{appearance:none;border:none;padding:12px 18px;border-radius:999px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;box-shadow:var(--shadow);transition:.2s}
+    .btn.primary{background:var(--burnt-orange);color:#fff}
+    .btn.secondary{background:var(--card)}
+    .btn:hover{transform:translateY(-1px)}
+    .hero{padding:48px 0}
+    .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+    .hero-card{background:var(--card);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+    .eyebrow{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
+    h2{margin:10px 0 8px;font-size:34px;line-height:1.2}
+    p{margin:0 0 12px;font-size:16px;line-height:1.7}
+    .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+    .badge{padding:6px 12px;border-radius:999px;background:#fff;border:1px solid rgba(0,0,0,.06);font-size:13px}
+    .story, .menu, .location, .footer{margin:28px 0}
+    .section{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
+    .story h3, .menu h3, .location h3{margin:0 0 8px;font-size:22px}
+    .list{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .tile{border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:16px}
+    .tile h4{margin:0 0 6px}
+    .price{font-weight:700;color:var(--burnt-orange)}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+    .map-wrap{overflow:hidden;border-radius:12px;border:1px solid rgba(0,0,0,.08)}
+    .note{font-size:13px;color:var(--muted)}
+    .footer{padding-bottom:56px}
+    .orderbar{position:fixed;left:0;right:0;bottom:0;background:var(--ink-black);color:#fff;padding:10px;border-top:1px solid rgba(255,255,255,.12);display:flex;gap:10px;justify-content:center;z-index:20}
+    .orderbar .btn{box-shadow:none}
+    @media (max-width:980px){ .hero-inner{grid-template-columns:1fr} .list{grid-template-columns:1fr 1fr} }
+    @media (max-width:640px){ h2{font-size:28px} .list{grid-template-columns:1fr} .nav-cta{display:none} }
+    .accent-line{height:4px;width:72px;background:linear-gradient(90deg,var(--burnt-orange),var(--forest-green));border-radius:6px;margin:10px 0 16px}
+    .btn[disabled]{opacity:.55;cursor:not-allowed;filter:grayscale(0.3)}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <img src="assets/deno-logo.png" alt="โลโก้ DE’ NO" />
+        <h1>DE’ NO</h1>
+      </div>
+      <div class="nav-cta" aria-label="สั่งเดลิเวอรี">
+        <a class="btn secondary" href="https://maps.app.goo.gl/UoTLFVNjVyvgKMUt5?g_st=ipc" target="_blank" rel="noopener">📍 ดูโลเคชัน</a>
+        <button class="btn primary" disabled title="เร็ว ๆ นี้">🥡 สั่งผ่าน Grab (เร็ว ๆ นี้)</button>
+        <a class="btn primary" href="https://lin.ee/cy8Fi3g?openExternalBrowser=1" target="_blank" rel="noopener">🛵 สั่งผ่าน LINE MAN</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-inner">
+      <div class="hero-card">
+        <div class="eyebrow">Simple • Bold • Comfort</div>
+        <h2>อาหารจานเดียวแบบฟิวชันที่ <br>เรียบง่าย แต่ชัดเจนในรสชาติ</h2>
+        <div class="accent-line"></div>
+        <p>ทุกชามของ <strong>DE’ NO</strong> เราออกแบบให้ “กินง่าย สบายใจ” แต่ยังคง <em>คาแรกเตอร์รสชาติที่ชัด</em> — เพื่อให้แต่ละมื้อของคุณกลายเป็นโมเมนต์ดี ๆ ระหว่างวัน</p>
+        <p>เราเชื่อว่า <strong>อาหารดี ๆ เพียงจานเดียว</strong> สามารถทำให้วันหนึ่ง “เบาลง” ได้ — ลองชามโปรดของคุณวันนี้สิ</p>
+        <div class="badges">
+          <span class="badge">พร้อมเสิร์ฟไว</span>
+          <span class="badge">วัตถุดิบคัดสรร</span>
+          <span class="badge">รสชัดจำง่าย</span>
+        </div>
+        <div class="cta-row" role="group" aria-label="ตัวเลือกการสั่ง">
+          <button class="btn primary" disabled title="เร็ว ๆ นี้">🥡 Grab (เร็ว ๆ นี้)</button>
+          <a class="btn primary" href="https://lin.ee/cy8Fi3g?openExternalBrowser=1" target="_blank" rel="noopener">🛵 LINE MAN</a>
+          <a class="btn secondary" href="#location">📍 โลเคชัน</a>
+        </div>
+      </div>
+      <div>
+        <img src="assets/deno-logo.png" alt="DE’ NO" style="border-radius:16px;box-shadow:var(--shadow);background:#fff;padding:16px" />
+      </div>
+    </div>
+  </header>
+
+  <section class="container story section" id="story">
+    <h3>เรื่องเล่าของ DE’ NO</h3>
+    <p><strong>เริ่มจากคำถามง่าย ๆ</strong> ว่า “ถ้าวันมันหนัก แต่เราอยากกินอะไรที่เบาใจ—ควรเป็นจานแบบไหน?”</p>
+    <p>เราจึงทำเมนูที่ <strong>เรียบง่าย</strong> แต่ <strong>ชัดเจนในรสชาติ</strong> กินง่ายได้ทุกวัน และคุ้นลิ้นพอที่จะกลายเป็น “ชามประจำ” ของคุณ</p>
+    <p class="note">เสิร์ฟเร็ว • อิ่มพอดี • รสชัดไม่ซับซ้อน • คุณค่าจากวัตถุดิบที่ตั้งใจ</p>
+  </section>
+
+  <section class="container menu section" id="menu">
+    <h3>เมนูที่คนรัก</h3>
+    <div class="list" role="list">
+      <article class="tile" role="listitem">
+        <h4>ข้าวขยำ x รสชัด</h4>
+        <p>ขยำให้เข้ากันทุกคำ—ได้ความบาลานซ์แบบ DE’ NO</p>
+        <div class="price">เริ่มต้น 59.-</div>
+      </article>
+      <article class="tile" role="listitem">
+        <h4>ชามเดียว “เบาวัน”</h4>
+        <p>กินง่าย สบายใจ แต่ไม่จืด—คาแรกเตอร์ชัดจำง่าย</p>
+        <div class="price">เริ่มต้น 59.-</div>
+      </article>
+      <article class="tile" role="listitem">
+        <h4>ซิกเนเจอร์โปรตีน</h4>
+        <p>เลือกโปรตีนที่ใช่ เพิ่มความสุขในชามของคุณ</p>
+        <div class="price">เพิ่มท็อปปิง +10/20</div>
+      </article>
+    </div>
+    <div class="cta-row">
+      <button class="btn primary" disabled title="เร็ว ๆ นี้">🥡 สั่ง Grab (เร็ว ๆ นี้)</button>
+      <a class="btn primary" href="https://lin.ee/cy8Fi3g?openExternalBrowser=1" target="_blank" rel="noopener">🛵 สั่ง LINE MAN</a>
+    </div>
+  </section>
+
+  <section class="container location section" id="location">
+    <h3>แวะมาหาเรา</h3>
+    <p>กดดูแผนที่ หรือปักหมุดไว้เลย</p>
+    <div class="cta-row">
+      <a class="btn secondary" href="https://maps.app.goo.gl/UoTLFVNjVyvgKMUt5?g_st=ipc" target="_blank" rel="noopener">📍 เปิดใน Google Maps</a>
+    </div>
+    <div class="map-wrap" style="margin-top:12px">
+      <iframe title="แผนที่ร้าน DE’ NO" width="100%" height="360" style="border:0"
+        loading="lazy" allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=Little%20Wings%20-%20%E0%B9%82%E0%B8%82%E0%B8%94%E0%B8%AB%E0%B8%B4%E0%B8%99%20-%20%E0%B9%80%E0%B8%82%E0%B8%B2%E0%B9%84%E0%B8%9C%E0%B9%88&output=embed"></iframe>
+    </div>
+    <p class="note" style="margin-top:8px">เวลาทำการ: ทุกวัน 10:30–20:30 (ปรับได้)</p>
+  </section>
+
+  <footer class="container footer section" aria-label="ส่วนท้าย">
+    <div class="eyebrow">DE’ NO</div>
+    <p><strong>อาหารจานเดียวแบบฟิวชัน — เรียบง่าย แต่ชัดเจนในรสชาติ</strong></p>
+    <p class="note">© <span id="y"></span> DE’ NO. สงวนลิขสิทธิ์ • <a href="#story">อ่านเรื่องของเรา</a></p>
+  </footer>
+
+  <div class="orderbar" aria-label="แถบสั่งด่วน">
+    <button class="btn primary" disabled title="เร็ว ๆ นี้">🥡 Grab</button>
+    <a class="btn primary" href="https://lin.ee/cy8Fi3g?openExternalBrowser=1" target="_blank" rel="noopener">🛵 LINE MAN</a>
+    <a class="btn secondary" href="#location">📍 โลเคชัน</a>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
